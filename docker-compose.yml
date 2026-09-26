@@ -1,0 +1,14 @@
+services:
+  zabbix-incident-simulator:
+    build: .
+    container_name: zabbix-incident-simulator
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - simulator-data:/data
+
+volumes:
+  simulator-data:

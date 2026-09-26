@@ -1,0 +1,150 @@
+scenarios:
+  cpu_high:
+    name: "CPU utilization high"
+    key: "sim.cpu.util"
+    units: "%"
+    allowed_types: [server, database, web]
+    problem_min: 91
+    problem_max: 99
+    recovery_min: 25
+    recovery_max: 65
+    threshold: 90
+    operator: ">"
+    severity: 3
+    ack_messages:
+      - "Alerta reconhecido pelo NOC. Iniciando análise de consumo de CPU."
+      - "Evento assumido pela operação. Validando processos com maior consumo de CPU."
+    treatment_messages:
+      - "Identificado processo com consumo elevado. Em análise de carga e threads."
+      - "Realizada análise dos processos e serviços com maior utilização de CPU."
+    solution_messages:
+      - "Processo de alto consumo normalizado e utilização de CPU estabilizada."
+      - "Serviço ajustado/reiniciado após validação. Consumo de CPU normalizado."
+
+  memory_high:
+    name: "Memory utilization high"
+    key: "sim.memory.util"
+    units: "%"
+    allowed_types: [server, database, web]
+    problem_min: 91
+    problem_max: 98
+    recovery_min: 35
+    recovery_max: 70
+    threshold: 90
+    operator: ">"
+    severity: 3
+    ack_messages:
+      - "Alerta reconhecido. Iniciando análise de memória e processos residentes."
+      - "NOC iniciou tratativa do consumo elevado de memória."
+    treatment_messages:
+      - "Identificado crescimento de memória em processo da aplicação."
+      - "Analisados processos, cache e consumo de memória do sistema operacional."
+    solution_messages:
+      - "Consumo de memória normalizado após atuação no processo responsável."
+      - "Serviço ajustado e memória liberada. Ambiente estabilizado."
+
+  disk_full:
+    name: "Filesystem utilization critical"
+    key: "sim.disk.util"
+    units: "%"
+    allowed_types: [server, database, web]
+    problem_min: 92
+    problem_max: 99
+    recovery_min: 40
+    recovery_max: 75
+    threshold: 90
+    operator: ">"
+    severity: 4
+    ack_messages:
+      - "Incidente reconhecido. Iniciando análise do filesystem e maiores diretórios."
+      - "NOC assumiu o incidente de capacidade de disco."
+    treatment_messages:
+      - "Identificado acúmulo de arquivos temporários em /tmp e /var/tmp."
+      - "Identificado crescimento de logs da aplicação acima do esperado."
+      - "Filesystem analisado; arquivos antigos e temporários foram identificados."
+    solution_messages:
+      - "Realizada limpeza de arquivos temporários e filesystem normalizado."
+      - "Efetuada rotação/limpeza de logs. Utilização do volume retornou ao normal."
+      - "Volume expandido e utilização normalizada após validação."
+
+  service_down:
+    name: "Critical service stopped"
+    key: "sim.service.status"
+    units: ""
+    allowed_types: [server, database, web]
+    problem_min: 0
+    problem_max: 0
+    recovery_min: 1
+    recovery_max: 1
+    threshold: 0
+    operator: "="
+    severity: 4
+    ack_messages:
+      - "Incidente reconhecido. Validando status do serviço e dependências."
+      - "NOC iniciou diagnóstico do serviço indisponível."
+    treatment_messages:
+      - "Serviço encontrado parado. Logs e dependências estão sendo analisados."
+      - "Identificada falha no processo do serviço; iniciada tratativa operacional."
+    solution_messages:
+      - "Serviço iniciado com sucesso e disponibilidade validada."
+      - "Serviço reiniciado após correção. Health check normalizado."
+
+  host_unavailable:
+    name: "Host unavailable"
+    key: "sim.availability"
+    units: ""
+    allowed_types: [server, database, web, switch, firewall]
+    problem_min: 0
+    problem_max: 0
+    recovery_min: 1
+    recovery_max: 1
+    threshold: 0
+    operator: "="
+    severity: 5
+    ack_messages:
+      - "Indisponibilidade reconhecida. Iniciando validação de conectividade."
+      - "NOC assumiu o incidente de indisponibilidade do equipamento."
+    treatment_messages:
+      - "Realizados testes de conectividade e validação do caminho de rede."
+      - "Equipe validando energia, conectividade e resposta do equipamento."
+    solution_messages:
+      - "Conectividade restabelecida e equipamento novamente acessível."
+      - "Equipamento voltou a responder. Disponibilidade validada."
+
+  latency_high:
+    name: "Network latency high"
+    key: "sim.net.latency"
+    units: "ms"
+    allowed_types: [switch, firewall]
+    problem_min: 250
+    problem_max: 900
+    recovery_min: 5
+    recovery_max: 45
+    threshold: 200
+    operator: ">"
+    severity: 2
+    ack_messages:
+      - "Alerta reconhecido. Iniciando análise de latência e caminho de rede."
+    treatment_messages:
+      - "Latência elevada confirmada. Validando interfaces e caminho até o destino."
+    solution_messages:
+      - "Latência normalizada após estabilização do enlace."
+
+  packet_loss:
+    name: "Packet loss high"
+    key: "sim.net.packetloss"
+    units: "%"
+    allowed_types: [switch, firewall]
+    problem_min: 25
+    problem_max: 80
+    recovery_min: 0
+    recovery_max: 2
+    threshold: 20
+    operator: ">"
+    severity: 3
+    ack_messages:
+      - "Alerta reconhecido. Iniciando análise de perda de pacotes."
+    treatment_messages:
+      - "Perda de pacotes confirmada. Interfaces e enlace em validação."
+    solution_messages:
+      - "Perda de pacotes normalizada após estabilização do enlace."
